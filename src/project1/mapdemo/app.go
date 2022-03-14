@@ -1,6 +1,11 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"math/rand"
+	"sort"
+	"time"
+)
 
 func main() {
 	var m map[string]string
@@ -58,4 +63,21 @@ func main() {
 	}
 	monsters = append(monsters, newMonster)
 	fmt.Println(monsters)
+
+	//map排序
+	rand.Seed(time.Now().UnixNano())
+	var testMap = make(map[int]string)
+	for i := 0; i < 10; i++ {
+		testMap[rand.Intn(100)] = fmt.Sprintf("test-%d", i)
+	}
+	var keys []int
+	for k, _ := range testMap {
+		keys = append(keys, k)
+	}
+	sort.Ints(keys)
+	fmt.Println(keys)
+	for _, key := range keys {
+		fmt.Println("key: ", key)
+		fmt.Println("val:", testMap[key])
+	}
 }
