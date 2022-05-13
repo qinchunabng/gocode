@@ -2,11 +2,13 @@ package main
 
 import (
 	"fmt"
+	"project1/chatroom/client/process"
 	"time"
 )
 
 var userId int
 var userPwd string
+var userName string
 
 func main() {
 	//接收用户的选择
@@ -25,10 +27,26 @@ func main() {
 		switch key {
 		case 1:
 			fmt.Println("登陆聊天室")
+			//用户登陆
+			fmt.Println("请输入用户的ID")
+			fmt.Scanf("%d\n", &userId)
+			fmt.Println("请输入用户密码")
+			fmt.Scanf("%s\n", &userPwd)
+			up := &process.UserProcess{}
+			up.Login(userId, userPwd)
 			loop = false
 		case 2:
 			fmt.Println("注册用户")
-			loop = false
+			fmt.Println("请输入用户id:")
+			fmt.Scanf("%d\n", &userId)
+			fmt.Println("请输入用户密码:")
+			fmt.Scanf("%s\n", &userPwd)
+			fmt.Println("请输入用户名称（nickname）:")
+			fmt.Scanf("%s\n", &userName)
+			//调用userProcess，完成注册请求
+			up := &process.UserProcess{}
+			up.Register(userId, userPwd, userName)
+			//loop = false
 		case 3:
 			fmt.Println("退出系统")
 			loop = false
@@ -40,14 +58,14 @@ func main() {
 		}
 	}
 
-	if key == 1 {
-		//用户登陆
-		fmt.Println("请输入用户的ID")
-		fmt.Scanf("%d\n", &userId)
-		fmt.Println("请输入用户密码")
-		fmt.Scanf("%s\n", &userPwd)
-		login(userId, userPwd)
-	}
+	//if key == 1 {
+	//	//用户登陆
+	//	fmt.Println("请输入用户的ID")
+	//	fmt.Scanf("%d\n", &userId)
+	//	fmt.Println("请输入用户密码")
+	//	fmt.Scanf("%s\n", &userPwd)
+	//	login(userId, userPwd)
+	//}
 
 	time.Sleep(20 * time.Second)
 }
